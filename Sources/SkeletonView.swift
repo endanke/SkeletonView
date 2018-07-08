@@ -36,9 +36,9 @@ public extension UIView {
         recursiveSearch(inArray: subviewsSkeletonables,
                         leafBlock:  startSkeletonLayerAnimationBlock(anim)) {
                             $0.startSkeletonAnimation(anim)
-                        }
+        }
     }
-
+    
     func stopSkeletonAnimation() {
         skeletonIsAnimated = false
         recursiveSearch(inArray: subviewsSkeletonables,
@@ -59,9 +59,9 @@ extension UIView {
     
     fileprivate func recursiveShowSkeleton(withType type: SkeletonType, usingColors colors: [UIColor], animated: Bool, animation: SkeletonLayerAnimation?) {
         addDummyDataSourceIfNeeded()
-        recursiveSearch(inArray: subviewsSkeletonables,
+        recursiveSearch(inArray: subviews,
                         leafBlock: {
-                            guard !isSkeletonActive else { return }
+                            guard !isSkeletonActive && isSkeletonable else { return }
                             isUserInteractionEnabled = false
                             saveViewState()
                             (self as? PrepareForSkeleton)?.prepareViewForSkeleton()
@@ -74,13 +74,14 @@ extension UIView {
     fileprivate func recursiveHideSkeleton(reloadDataAfter reload: Bool) {
         removeDummyDataSourceIfNeeded()
         isUserInteractionEnabled = true
-        recursiveSearch(inArray: subviewsSkeletonables,
+        recursiveSearch(inArray: subviews,
                         leafBlock: {
+                            guard isSkeletonable && isSkeletonActive else { return }
                             recoverViewState(forced: false)
                             removeSkeletonLayer()
-                        }, recursiveBlock: {
-                            $0.recursiveHideSkeleton(reloadDataAfter: reload)
-                        })
+        }, recursiveBlock: {
+            $0.recursiveHideSkeleton(reloadDataAfter: reload)
+        })
     }
     
     fileprivate func startSkeletonLayerAnimationBlock(_ anim: SkeletonLayerAnimation? = nil) -> VoidBlock {

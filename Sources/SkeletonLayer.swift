@@ -23,7 +23,7 @@ class SkeletonLayerFactory {
         
         layer.cornerRadius = CGFloat(multilineCornerRadius)
         layer.masksToBounds = true
-
+        
         return layer
     }
 }
@@ -71,6 +71,8 @@ struct SkeletonLayer {
         self.maskLayer = type.layer
         self.maskLayer.anchorPoint = .zero
         self.maskLayer.bounds = holder.maxBoundsEstimated
+        self.maskLayer.cornerRadius = holder.layer.cornerRadius
+        self.maskLayer.frame = CGRect(x: 0, y: 0, width: holder.frame.width, height: holder.frame.height)
         addMultilinesIfNeeded()
         self.maskLayer.tint(withColors: colors)
     }
@@ -86,7 +88,7 @@ struct SkeletonLayer {
 }
 
 extension SkeletonLayer {
-
+    
     func start(_ anim: SkeletonLayerAnimation? = nil) {
         let animation = anim ?? type.layerAnimation
         contentLayer.playAnimation(animation, key: "skeletonAnimation")
