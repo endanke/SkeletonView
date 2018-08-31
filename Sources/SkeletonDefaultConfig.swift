@@ -10,7 +10,11 @@ import UIKit
 
 public enum SkeletonDefaultConfig {
         
-        public static let tintColor = UIColor.clouds
+        public static var tintColor = UIColor.clouds
+    
+        public static var animatedTintColor: UIColor? = nil
+    
+        public static var pulseAnimationTiming = kCAMediaTimingFunctionEaseInEaseOut
         
         public static let gradient = SkeletonGradient(baseColor: tintColor)
         

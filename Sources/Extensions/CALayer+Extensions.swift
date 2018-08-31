@@ -64,9 +64,9 @@ public extension CALayer {
     var pulse: CAAnimation {
         let pulseAnimation = CABasicAnimation(keyPath: #keyPath(CALayer.backgroundColor))
         pulseAnimation.fromValue = backgroundColor
-        pulseAnimation.toValue = UIColor(cgColor: backgroundColor!).complementaryColor.cgColor
+        pulseAnimation.toValue = SkeletonDefaultConfig.animatedTintColor?.cgColor ?? UIColor(cgColor: backgroundColor!).withAlphaComponent(0.2).cgColor
         pulseAnimation.duration = 1
-        pulseAnimation.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseInEaseOut)
+        pulseAnimation.timingFunction = CAMediaTimingFunction(name: SkeletonDefaultConfig.pulseAnimationTiming)
         pulseAnimation.autoreverses = true
         pulseAnimation.repeatCount = .infinity
         return pulseAnimation
