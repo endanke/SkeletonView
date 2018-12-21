@@ -28,6 +28,11 @@ public extension UIView {
     var isSkeletonActive: Bool {
         return status == .on || (subviewsSkeletonables.first(where: { $0.isSkeletonActive }) != nil)
     }
+    
+    var skeletonIsAnimated: Bool! {
+        get { return objc_getAssociatedObject(self, &AssociatedKeys.isSkeletonAnimated) as? Bool ?? false }
+        set { objc_setAssociatedObject(self, &AssociatedKeys.isSkeletonAnimated, newValue, AssociationPolicy.retain.objc) }
+    }
 }
 
 extension UIView {
@@ -55,11 +60,6 @@ extension UIView {
     var viewState: RecoverableViewState? {
         get { return objc_getAssociatedObject(self, &AssociatedKeys.viewState) as? RecoverableViewState }
         set { objc_setAssociatedObject(self, &AssociatedKeys.viewState, newValue, AssociationPolicy.retain.objc) }
-    }
-    
-    var skeletonIsAnimated: Bool! {
-        get { return objc_getAssociatedObject(self, &AssociatedKeys.isSkeletonAnimated) as? Bool ?? false }
-        set { objc_setAssociatedObject(self, &AssociatedKeys.isSkeletonAnimated, newValue, AssociationPolicy.retain.objc) }
     }
 
     fileprivate var skeletonable: Bool! {
