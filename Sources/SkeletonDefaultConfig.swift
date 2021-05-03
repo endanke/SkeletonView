@@ -14,7 +14,7 @@ public enum SkeletonDefaultConfig {
     
         public static var animatedTintColor: UIColor? = nil
     
-        public static var pulseAnimationTiming = kCAMediaTimingFunctionEaseInEaseOut
+        public static var pulseAnimationTiming = CAMediaTimingFunctionName.easeInEaseOut
         
         public static let gradient = SkeletonGradient(baseColor: tintColor)
         

@@ -84,7 +84,7 @@ public extension CALayer {
         let animGroup = CAAnimationGroup()
         animGroup.animations = [startPointAnim, endPointAnim]
         animGroup.duration = 1.5
-        animGroup.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseIn)
+        animGroup.timingFunction = CAMediaTimingFunction(name: CAMediaTimingFunctionName.easeIn)
         animGroup.repeatCount = .infinity
         
         return animGroup
